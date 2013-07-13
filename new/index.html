@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+	Giant Steps for Algebra - Stretchy
+	</title>
+
+<!-- Load the Paper.js library -->
+<script type="text/javascript" src="../js/paper.js"></script>
+<!-- Define inlined PaperScript associate it with myCanvas -->
+<script src="../js/jquery-1.9.1.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script type="text/javascript">
+
+
+function overlay() {
+	el = document.getElementById("overlay");
+	el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+
+//$('.story-toggler').button('toggle');
+
+function story(sh) {
+	l = document.getElementById("story-top");
+	l.style.visibility = (l.style.visibility == "hidden") ? "visible" : "hidden";
+	//$('.story-toggler').button('toggle');
+	if(sh == 1){
+		l.style.visibility = "visible";
+	}
+	else if(sh == 0){
+		l.style.visibility = "hidden";
+	}
+}
+
+function teachDash(th) {
+	t = document.getElementById("footer-toggle");
+	t2 = document.getElementById("footer-menu");
+	//t.style.visibility = (t.style.visibility == "hidden") ? "visible": "hidden";
+	t2.style.visibility = (t2.style.visibility == "visible") ? "hidden": "visible";
+}
+
+window.globals = {};
+</script>
+
+<script type="text/paperscript" src="js/scripts.js" canvas = "myCanvas"> </script>
+<script type="text/javascript">
+var i=0;
+var qs = ["Question 1. <br />A giant has a treasure she wants to bury. <br />The giant take 4 giant steps forward and buries her treasure. <br />The next day she wants to bury more treasure but she can't remember exactly where to go. <br /><br /><br /> The giant takes 3 giant steps forward. Then she goes 2 meters forward and she finds the right spot and buries the treasure again. <br />		<br />		Can you figure out how many meters away the Giant buried the treasure? <br /> <br />", "Question 2. <br />A giant has a treasure that he wants to bury. <br /><br />		He walks 3 giant steps forward. He then realizes that he has gone too far and goes back 3 meters to find a good spot. Then he buries the treasure.<br /><br /><br />		The next day he wants to bury more treasure, but he can't remember where to go.<br />		He walks 2 giant steps forward and then 2 meters forward and finds the right spot and buries the treasure.<br /><br />		Can you figure out how many meters away the Giant buried the treasure? <br /> <br />",		"Question 3. <br />A giant has a treasure she wants to bury. <br />		The giant takes 3 giant steps forward. The she goes 2 meters forward and buries his treasure.<br /><br /><br />		The next day she wants to bury more treasure but can't remember exactly where to go.<br /><br />		The giant goes 4 giant steps forward. Then she realizes that she has gone too far and goes back 1 foot and finds the right spot and buries the treasure again. Can you figure out how many meters away the Giant buried the treasure? <br /> <br />",		"Question 4. <br />A giant has a treasure that he wants to bury. <br /><br />		He walks 3 giant steps forward. He then realizes that he has gone too far and goes back 7 meters to find a good spot. Then he buries the treasure.<br /><br /><br />		The next day he wants to bury more treasure, but he can't remember where to go. He walks 2 giant steps forward. He then realizes that he has gone too far and goes back 2 meters and finds the right spot and buries the treasure.<br /><br />		Can you figure out how many meters away the Giant buried the treasure? <br /> <br />",		"Question 5. <br />A giant has a treasure that he wants to bury.<br /><br />		He walks 6 giant steps forward. He then realizes that he has gone too far and goes back 12 meters and finds a good spot. Then he buries the treasure.<br /><br /><br />		The next day he wants to bury more treasure, but he can't remember where to go.<br />		He walks 4 giant steps forward. He then realizes that he has gone too far and goes back 6 meters. And finds the right spot and buries the treasure.<br /><br />		Can you figure out how many meters away the Giant buried the treasure? <br /> <br />",		"Question 6. <br />A giant has a treasure that he wants to bury.<br /><br />		He walks 4 giant steps forward. He then realizes that he has gone too far and goes back 8 meters and finds a good spot. Then he buries the treasure.<br /><br /><br />		The next day he wants to bury more treasure, but he can't remember where to go. He walks 1 giants step forward. He then goes another 4 meters forward and finds the right spot and buries the treasure.<br /><br />	Can you figure out how many meters away the Giant buried the treasure? <br /> <br />"
+		
+];
+
+var msg =["<p>Try Again!</p>", "<p>Correct!</p>", "<p>Questions Up!</p>"];
+
+var as = [8, 12, 11, 8, 6, 8];
+
+</script>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+
+
+<img src = "../images/flag-small.png" id = 'flag' hidden/>
+<img src = "../images/shore2.png" id = 'shore' hidden />
+<img src = "../images/hills.jpg" id = 'hills' hidden/>
+
+</head>
+<body>
+
+	<div id="header-fixed" class = "row" width = "1200">
+		<div id = "my-menus" class = "my-menus span5">
+			<div class="btn-group">
+				<div class="btn-group">
+				<button onclick = "story()" type="button" class="btn" id = "story-toggler">Toggle Story</button>
+				<a href = "#draw" class = "smoothScroll"><button type="button" class="btn">Solve the Problem</button></a>
+				<a href = "#answer" class = "smoothScroll"><button type="button" class="btn">Answer</button></a>
+				</div>
+			</div>
+		</div>
+		<div class="span2"></div>
+		<div id="story-top" class = "span5">
+		<p>
+			Question 1. <br />
+			A giant has a treasure she wants to bury. <br />
+			The giant take 4 giant steps forward and buries her treasure. <br />
+			The next day she wants to bury more treasure but she can't remember exactly where to go. <br />
+			<br />
+			 
+			The giant takes 3 giant steps forward. Then she goes 2 meters forward and she finds the right spot and buries the treasure again. <br />
+			<br />
+			
+			Can you figure out how many meters away the Giant buried the treasure? <br />
+		</p>
+		</div>
+	</div>
+
+	<div id="footer-fixed" class = "row" width = "1200">
+
+		<div class="span6"></div>
+		
+				
+		<div id = "footer-menu" class = "span3 my-menus">
+		<div class="btn-group" data-toggle="buttons-radio">
+		  <button type="button" class="btn" onclick="window.location.href='../v2'">Initial</button>
+		  <button type="button" class="btn" onclick="window.location.href='../meter'">Fixed Meter</button>
+		  <button type="button" class="btn" onclick="window.location.href='../new'">Auto Rescaling</button>
+		</div>
+		</div>
+
+		<div class="span1"></div>
+		
+		<div id = "footer-toggle" class = "my-menus span2">
+			<div class="btn-group">
+			<a onclick = "teachDash()"><button type="button" class="btn btn-primary" id = "fToggler1" data-toggle="button">Teacher's Dashboard</button></a>
+			</div>
+		</div>
+	</div>
+
+	<img src = "../images/island-landing.png" />
+
+	<br />
+	<br />
+	<a name = "qn"> </a>
+
+	</div>
+
+<h3>Zoom
+        <input id="scale" type="range" min="0.5" max="1.5" value="1" step="0.01" /> :<span id="zoomVal"> 1</span> 
+	</h3>
+
+
+<div name = "draw">
+	
+
+	<br />
+    <canvas id="myCanvas" height = "700" width = "1300"></canvas> 
+</div>
+<a name = "answer" > </a>
+<div style="background: url(../images/desert-scene.png) no-repeat; height: 258px; width: 800px">
+<div style = "height: 210px"> </div>
+<div class = "row">
+<div style="margin-left: 330px;"> 
+		<input type="text" class = "box" id = "ans" placeholder = "Distance between start and treasure" size = 50 style = "margin-top: 7px"/>
+		meters <a onclick = 'overlay()'><input type="submit" class = "btn" onclick="javascript:
+		if(document.getElementById('ans').value!=as[i]) {
+			document.getElementById('message').innerHTML = msg[0];
+		}
+		else {
+			document.getElementById('message').innerHTML = msg[1];
+			if(i>4)
+				document.getElementById('message').innerHTML = msg[2];
+			else
+				document.getElementById('story-top').innerHTML=qs[++i]; 
+			globals.Clear();
+			document.getElementById('nqn').click();}" value="Check" /></a>
+			</div>
+	</div>
+	</div>
+
+	</div>
+</div>
+
+<div class = "vertical" />
+
+<div class = "btn-group">
+			<a href = "#draw" onclick = "story(1)" class = "smoothScroll">
+			    <input type = "submit" class = "btn" style = "margin-left: 70px; margin-top: 20px; margin-bottom: 20px" onclick="javascript:
+			    if(i == 0) {
+			    	alert('First Question!');
+			    }
+			    else{
+			    	document.getElementById('story-top').innerHTML=qs[--i]; 
+			    	globals.Clear();
+			    }" value="Previous Question" />
+			</a>
+			
+			
+			<a href = "#draw" onclick = "story(1)" class = "smoothScroll" id = "nqn">
+			    <input type = "submit" class = "btn" style = "margin-left: 20px; margin-top: 20px; margin-bottom: 20px" onclick="javascript:
+			    if(i > 4) 
+			    	alert('Questions up!'); 
+			    else {
+			       	document.getElementById('story-top').innerHTML=qs[++i];
+			       	globals.Clear();
+			    }" value="Next Question" />
+			</a>    
+</div>
+<div id="overlay">
+<div id="over-contents">
+     <div id = "message">
+          <p>Correct!</p>
+     </div>
+     <div id = "message-controls">
+     	<a href="#draw" onclick = "story(1)" class = "smoothScroll"> <button onclick='overlay()' class = "btn">Okay</button> </a>
+     </div>
+</div>
+</div>
+
+<div class = "vertical" />
+
+
+
+<script type="text/javascript" src="../js/smoothscroll.js"></script>
+
+</body>
+</html>
