@@ -1,14 +1,3 @@
-//aims of stretchy 2:
-// refine M and G appearance
-
-//new intermediate aim
-// invert day 1 and day 2 (top-down)
-// implement arrowhead stuff
-
-//next iteration
-// enable selection of nodes, and make for deletion
-// remove onmousemove entirely, make it work well on tablets
-
 var segment, path, green = 0;
 
 var controls = new Layer(); 
@@ -23,18 +12,23 @@ var hitOptions = {
 //universal locations and sizes
 var metersize = 50;
 var GSsize = null;
-var circSize = 15;
+var circSize = 12;
 var height = 400;
 //
 
 //Buttons: For red, green, Layer 1, and Layer 2
 controls.activate();
 
+var back = new Raster('bg');
+back.position = new Point(525, 350);
+back.opacity = 0.4;
+back.scale(0.25);
+
 var cornerSize = new Size(20, 20);
 
 // Giant steps / meters
-var tlGSMx = 50;
-var tlGSMy = 50;
+var tlGSMx = 500;
+var tlGSMy = 600;
 
 var rectangle2 = new Rectangle(new Point(tlGSMx, tlGSMy), new Point(tlGSMx + 100, tlGSMy + 50));
 var rec2 = new Path.RoundRectangle(rectangle2, cornerSize);
@@ -56,7 +50,7 @@ text.content = 'Meters';
 //
 
 //Days 1 and 2
-var tlDaysx = 175, tlDaysy = 50;
+var tlDaysx = 625, tlDaysy = 600;
 
 var l1 = new Rectangle(new Point(tlDaysx, tlDaysy), new Point(tlDaysx + 100, tlDaysy + 50));
 var lay1 = new Path.RoundRectangle(l1, cornerSize);
@@ -78,7 +72,7 @@ text.content = 'Day 2';
 //
 
 //Undo and clear
-var tlEdx = 300, tlEdy = 50;
+var tlEdx = 750, tlEdy = 600;
 
 var un = new Rectangle(new Point(tlEdx, tlEdy), new Point(tlEdx + 100, tlEdy + 50));
 var undo = new Path.RoundRectangle(un, cornerSize);
@@ -96,11 +90,11 @@ clr.fillColor = '#ccbbaa';
 var text = new PointText(new Point(tlEdx + 20, tlEdy + 80));
 text.name = 'tclr';
 text.fillColor = 'black';
-text.content = 'Clear';
+text.content = 'Clear All';
 //
 
 
-var start = new Point(300, height);
+var start = new Point(180, height);
 var circ = new Path.Circle(start, circSize);
 circ.strokeColor = 'black';
 circ.fillColor = 'grey';
@@ -109,7 +103,7 @@ var flag = new Raster('flag');
 var flsize = new Point(23, -50);
 flag.position = start + flsize;
 
-var end = new Point(70, 250);
+var end = new Point(570, 250);
 var flag2 = new Raster('flag');
 var flsize = new Point(23, -50);
 flag2.position = end + flsize;
@@ -118,7 +112,7 @@ var endC = new Path.Circle(end, circSize);
 endC.fillColor = 'grey';
 endC.strokeColor = 'black';
 
-var tlCornX = 500; var tlCornY = 50;
+var tlCornX = 900; var tlCornY = 600;
 
 	//rectangle
 	var metNum = 0;
@@ -164,6 +158,53 @@ var tlCornX = 500; var tlCornY = 50;
 	text.fillColor = 'black';
 	text.content = '+';
 
+//
+
+
+var gsCornX = 550; var gsCornY = 50;
+
+	//rectangle
+	var gsNum = 0;
+	var gs = new Rectangle(new Point(gsCornX, gsCornY), new Point(gsCornX + 100, gsCornY + 50));
+	var giantS = new Path.RoundRectangle(gs, cornerSize - new Point(15,15));
+	giantS.name = 'giantS';
+	giantS.fillColor = '#ee0000';
+
+	//text
+	var gstext = new PointText(new Point(gsCornX + 40, gsCornY + 30));
+	gstext.name = 'giantS';
+	gstext.fillColor = 'black';
+	gstext.content = 'G';
+	
+	//triangles
+	var gcenter = new Point(gsCornX + 35, gsCornY + 80);
+	var triangle2 = new Path.RegularPolygon(gcenter, sides, radius); //sides and radius defined earlier in meter controls
+	triangle2.fillColor = 'white';
+	triangle2.strokeColor = 'black';
+	triangle2.rotate(30);
+	triangle2.name = 'gsMinus';
+	var tri3 = triangle2.clone();
+	tri3.name = 'gsPlus';
+	tri3.rotate(60);
+	tri3.translate(new Point(40, -7));
+	
+
+	var gsControls = new Group();	
+	gsControls.addChild(triangle2);
+	gsControls.addChild(tri3);
+	
+
+	//+ and - symbol on the triangles
+	var text = new PointText(new Point(gsCornX + 26, gsCornY + 82));
+	text.name = 'gminus';
+	text.fillColor = 'black';
+	text.content = '-';
+
+	var text = new PointText(new Point(gsCornX + 62, gsCornY + 82));
+	text.name = 'gplus';
+	text.fillColor = 'black';
+	text.content = '+';
+
 
 
 //
@@ -175,21 +216,22 @@ var tlCornX = 500; var tlCornY = 50;
 
 
 var pt1 = new Point(200,150), pt2 = new Point(300,50), pt3 = new Point(400, 150), move = new Point(0, 200);
+var blued = new RgbColor(0.105, 0.376, 0.878), greend = new RgbColor(0.2, 1.0, 0.2), redd = new RgbColor(0.988, 0.447, 0.447);
 
 var lstyle = {
-	strokeColor: 'blue',
-	strokeWidth: 5,
+	strokeColor: blued,
+	strokeWidth: 10,
 	strokeCap: 'round'
 }
 
 var gstyle = {
-	strokeColor: 'green',
-	strokeWidth: 6,
+	strokeColor: greend,
+	strokeWidth: 3,
 	strokeCap: 'round'
 }
 var rstyle = {
-	strokeColor: 'red',
-	strokeWidth: 10,
+	strokeColor: redd,
+	strokeWidth: 6,
 	strokeCap: 'round'
 }
 
@@ -228,6 +270,7 @@ project.l2 = layer2;
 var ind = 0, ind2 = 0, mover = 0, color = 'red', lp1 = null, lp2 = null;
 var day = 1; dirn = 0;
 
+controls.activate();
 controls.children['green'].opacity = 0.2;
 controls.children['tgreen'].fillColor = 'grey';
 controls.children['lay2'].opacity = 0.2;
@@ -245,7 +288,9 @@ $('#scale').change(function(evt) {
         view.zoom = evt.target.valueAsNumber; 
         rounded =  Math.round(view.zoom * 100)/ 100;
         document.getElementById('zoomVal').innerHTML = rounded;
-}); 
+});
+
+
 
 function Setup(lay){
 	lay.activate();
@@ -273,6 +318,151 @@ function zom(dir){
 	view.zoom += (dir * 0.1);
 }
 
+function activateMeter(){
+	color = 'green';
+	controls.children['red'].opacity = 0.2;
+	controls.children['tred'].fillColor = 'grey';
+	controls.children['green'].opacity = 1;
+	controls.children['tgreen'].fillColor = 'white';
+}
+
+function activateGS(){
+	color = 'red';
+	controls.children['red'].opacity = 1;
+	controls.children['tred'].fillColor = 'white';
+	controls.children['green'].opacity = 0.2;
+	controls.children['tgreen'].fillColor = 'grey';
+}
+
+function day1(){
+	layer1.activate();
+	layer1.moveAbove(layer2);
+	
+	color = 'red';
+	controls.children['red'].opacity = 1;
+	controls.children['tred'].fillColor = 'white';
+	controls.children['green'].opacity = 0.2;
+	controls.children['tgreen'].fillColor = 'grey';
+	
+	layer1.opacity = 1;
+	layer2.opacity = 0.4;
+	controls.children['lay1'].opacity = 1;
+	controls.children['tlay1'].fillColor = 'black';
+	controls.children['lay2'].opacity = 0.2;
+	controls.children['tlay2'].fillColor = 'grey';
+}
+
+function day2(){
+	layer2.activate();
+	layer2.moveAbove(layer1);
+	
+	color = 'red';
+	controls.children['red'].opacity = 1;
+	controls.children['tred'].fillColor = 'white';
+	controls.children['green'].opacity = 0.2;
+	controls.children['tgreen'].fillColor = 'grey';
+	
+	layer2.opacity = 1;
+	layer1.opacity = 0.4;
+	
+	controls.children['lay2'].opacity = 1;
+	controls.children['tlay2'].fillColor = 'black';
+	controls.children['lay1'].opacity = 0.2;
+	controls.children['tlay1'].fillColor = 'grey';
+}
+
+
+function toggleDraw(){
+	if (color == 'red'){
+		activateMeter();
+	}
+	else if (color == 'green'){
+		activateGS();
+	}
+}
+
+function toggleDay(){
+	if (project.activeLayer == layer1){
+		day2();
+	}
+	else if (project.activeLayer == layer2){
+		day1();
+	}
+}
+
+function Undo(){
+	
+	if(!project.activeLayer.curves.lastChild.remove()){
+		project.activeLayer.curves.children[project.activeLayer.curves.children.length - 1].remove();
+	} 
+	
+	console.log(project.activeLayer.curves.children.length);
+	
+	if(project.activeLayer.circles.lastChild != null){
+		project.activeLayer.circles.lastChild.removeSegments();
+		project.activeLayer.circles.lastChild.remove();
+	}
+	
+	if(project.activeLayer.lines){
+		project.activeLayer.lines.lastChild.remove();
+	}
+	
+	if (project.activeLayer.circles.lastChild == null){
+		console.log('Circles nulled');
+		Setup(project.activeLayer);
+	}
+	console.log(project.activeLayer.lp);
+}
+
+function Clear(){
+	if(layer2 == project.activeLayer){
+		layer1.curves.removeChildren(0);
+		layer1.circles.removeChildren(0);
+		layer1.lines.removeChildren(0);
+		layer1.lp = null;
+		Setup(layer1);
+		layer2.curves.removeChildren(0);
+		layer2.circles.removeChildren(0);
+		layer2.lines.removeChildren(0);
+		layer2.lp = null;
+		Setup(layer2);
+	}
+	if(layer1 == project.activeLayer){
+		layer2.curves.removeChildren(0);
+		layer2.circles.removeChildren(0);
+		layer2.lines.removeChildren(0);
+		layer2.lp = null;
+		Setup(layer2);
+		layer1.curves.removeChildren(0);
+		layer1.circles.removeChildren(0);
+		layer1.lines.removeChildren(0);
+		layer1.lp = null;
+		Setup(layer1);
+	}
+	
+}
+
+globals.Clear = Clear;
+
+
+function computeCurve(pt1, pt2, lr){
+	var gap = pt1 - pt2; //pt1 is axisPoint, pt2 is lastPoint i.e. pt1 is the point ahead/to the right
+	if (pt1.x < pt2.x){
+		gap *= -1;
+//		console.log('inverting', gap);
+	}	
+	if (lr == layer2){
+		gap *= -1;
+//		console.log('layer inverting', gap);
+	}
+		
+	gap.angle -= 90;
+	
+	gap /= 2;
+	var midp = new Point((pt1 + pt2)/2);
+	return (midp + gap);
+}
+
 function drawArc(event){
 	//arc should be made if click is not on active layer, layer 3, or on anything
 	
@@ -293,69 +483,16 @@ function drawArc(event){
 	//else draw giant step appropriately
 	var dir = 1;
 	var lastPoint = project.activeLayer.lp;
+	console.log(event.point);
 	dir = ((event.point.x < lastPoint.x) ? -1 : 1);
 	
 	if(color == 'green') //shifting to meter drawing
-			drawMeter(dir);
+		drawMeter(dir);
 	else{
-		if (project.activeLayer.lp){
-			
-			// todo --
-			// some accounting needs to be done, so that if a click is on the right of a circle, aand the GSsize is negative, the new step comes to the right, rather than back which is left
-
-			//to keep track of backwards and day 1 or day 2, we will make up a bizarre numerical system.
-			// day = 1 or 2. dirn = 0 or 2. Their sum tells me uniquely what is up.
-			if (GSsize == null)
-				GSsize = event.point.x - lastPoint.x;
-			var axisPoint = new Point(lastPoint.x + (dir * GSsize), height); //point on axis, lcoated ahead or back, at giant step gap.
-			
-			
-			/*
-			if(project.activeLayer == layer1)
-				day = 1;
-			else if (project.activeLayer == layer2)
-				day = 2;
-			*/
-			
-			var gap = axisPoint - lastPoint;
-			if (axisPoint < lastPoint){
-				gap *= -1;
-			}
-			
-			if (project.activeLayer == layer2){
-				gap *= -1;
-			}
-			gap.angle -= 90;
-			
-			gap /= 2;
-			var midp = new Point((lastPoint + axisPoint)/2);
-			var ncurve = new Path.Arc(lastPoint, midp + gap, axisPoint);
-			
-			ncurve.style = rstyle;
-	
-			curves.addChild(ncurve);
-			
+		if(GSsize == null){
+			GSsize = event.point.x - lastPoint.x;
 		}
-		else{
-			//project.activeLayer.lp = new Point(axisPoint);
-			Setup(project.activeLayer);
-		}
-	
-		//make the circle
-		circle = new Path.Circle(axisPoint, circSize);
-		circle.strokeColor = 'black';
-		circle.fillColor = 'grey';
-		circle.name = (dir == -1)?'rback' : 'rfw';
-		
-		circles.addChild(circle);
-	
-		var line = new Path.Line(circles.lastChild.previousSibling.position, circles.lastChild.position);
-		line.style = lstyle;
-		lines.addChild(line);
-	
-		path = circles.lastChild;
-		ind = circles.lastChild.index;
-		path.selected = true;
+		drawGS(dir);
 	}
 }
 
@@ -378,23 +515,22 @@ function changeMeter(obj){
 }
 
 function drawMeters(){
-		//using metNum, loop the drawing instructions, and change mtext.content back to M
-		var num = metNum;
-		if (metNum < 0){
-			while (metNum < 0){
-				drawMeter(-1);
-				metNum += 1;
-			}
+	var num = metNum;
+	if (metNum < 0){
+		while (metNum < 0){
+			drawMeter(-1);
+			metNum += 1;
 		}
-		else if (metNum > 0){
-			while (metNum > 0){
-				drawMeter(1);
-				metNum -= 1;
-			}
-		}
-		metNum = num;
-		mtext.content = metNum + ' M';
 	}
+	else if (metNum > 0){
+		while (metNum > 0){
+			drawMeter(1);
+			metNum -= 1;
+		}
+	}
+	metNum = num;
+	mtext.content = metNum + ' M';
+}
 
 function drawMeter(dir){
 		var curves = project.activeLayer.curves;
@@ -406,29 +542,11 @@ function drawMeter(dir){
 		}	
 			
 		if (project.activeLayer.lp){
-				var lastPoint = project.activeLayer.lp;
-	
-			//eventpoint is to simulate click at calculated point
-
+			var lastPoint = project.activeLayer.lp;
 			var back = new Point(dir * metersize,0);
-			
 			eventpoint = lastPoint + back;
-			
-			var gap = eventpoint - lastPoint;
-			if (eventpoint.x < lastPoint.x){
-				gap *= -1;
-			}
-			
-			if (project.activeLayer == layer2){
-				gap *= -1;
-			}
-			//else
-			//	var gap = lastPoint - event.point;
-			console.log(eventpoint);
-			gap.angle -= 90;
-			gap /= 2;
-			var midp = new Point((lastPoint + eventpoint)/2);
-			var ncurve = new Path.Arc(lastPoint, midp + gap, eventpoint);
+			var pointBw = new Point(computeCurve(eventpoint, lastPoint, project.activeLayer));
+			var ncurve = new Path.Arc(lastPoint, pointBw, eventpoint);
 			
 			ncurve.style = gstyle;
 			ncurve.strokeColor = 'green';
@@ -462,67 +580,133 @@ function drawMeter(dir){
 	path.selected = true;
 }
 
-function Undo(){
-	//project.activeLayer.curves.removeChildren(project.activeLayer.curves.children.length - 1);
-	
-	if(!project.activeLayer.curves.lastChild.remove()){
-		//project.activeLayer.curves.lastChild.removeSegments();
-		project.activeLayer.curves.children[project.activeLayer.curves.children.length - 1].remove();
-	} 
-	
-	console.log(project.activeLayer.curves.children.length);
-	
-	if(project.activeLayer.circles.lastChild != null){
-		project.activeLayer.circles.lastChild.removeSegments();
-		project.activeLayer.circles.lastChild.remove();
+
+function changeGS(obj){
+	//if the right triangle, add one value to metNum, and update the text in mtext.content
+	if(obj.name == 'gsPlus'){
+		gsNum += 1;
+		gstext.content = gsNum + ' G';
 	}
-	
-	if(project.activeLayer.lines){
-		project.activeLayer.lines.lastChild.remove();
+	else if (obj.name == 'gsMinus'){
+		gsNum -= 1;
+		gstext.content = gsNum + ' G';
 	}
-	//project.activeLayer.circles.removeChildren(project.activeLayer.circles.children.length - 1);
+}
+
+function drawGSes(){
+	var num = gsNum;
+	if (gsNum < 0){
+		while (gsNum < 0){
+			drawGS(-1);
+			gsNum += 1;
+		}
+	}
+	else if (gsNum > 0){
+		while (gsNum > 0){
+			drawGS(1);
+			gsNum -= 1;
+		}
+	}
+	gsNum = num;
+	gstext.content = gsNum + ' G';
+}
+
+function drawGS(dir){
+	var curves = project.activeLayer.curves;
+	var circles = project.activeLayer.circles;
+	var lines = project.activeLayer.lines;
+	var lastPoint = project.activeLayer.lp;
+	//console.log(dir);
 	
-	if (project.activeLayer.circles.lastChild == null){
-		console.log('Circles nulled');
-		//project.activeLayer.lp = null;
+	if (project.activeLayer.lp){
+		lastPoint = circles.lastChild.position;
+			
+			// todo --
+			// some accounting needs to be done, so that if a click is on the right of a circle, and the GSsize is negative, the new step comes to the right, rather than back which is left
+			
+		if(GSsize == null){
+			GSsize = 100;
+		}
+		
+		if(GSsize < 0){
+			GSsize *= -1;
+		}
+
+		var axisPoint = new Point(lastPoint.x + (dir * GSsize), height); //point on axis, located ahead or back, at giant step gap.
+		var pointBw = new Point(computeCurve(axisPoint, lastPoint, project.activeLayer)); //point Between
+		var ncurve = new Path.Arc(lastPoint, pointBw, axisPoint);
+		
+		ncurve.style = rstyle;
+	
+		curves.addChild(ncurve);
+	}
+	else{
+		//project.activeLayer.lp = new Point(axisPoint);
 		Setup(project.activeLayer);
 	}
-	console.log(project.activeLayer.lp);
-}
 
-function Clear(){
-	/*project.activeLayer.curves.removeChildren(0);
-	project.activeLayer.circles.removeChildren(0);
-	project.activeLayer.lp = null;
-	Setup(project.activeLayer);*/
-	if(layer2 == project.activeLayer){
-		layer1.curves.removeChildren(0);
-		layer1.circles.removeChildren(0);
-		layer1.lines.removeChildren(0);
-		layer1.lp = null;
-		Setup(layer1);
-		layer2.curves.removeChildren(0);
-		layer2.circles.removeChildren(0);
-		layer2.lines.removeChildren(0);
-		layer2.lp = null;
-		Setup(layer2);
-	}
-	if(layer1 == project.activeLayer){
-		layer2.curves.removeChildren(0);
-		layer2.circles.removeChildren(0);
-		layer2.lines.removeChildren(0);
-		layer2.lp = null;
-		Setup(layer2);
-		layer1.curves.removeChildren(0);
-		layer1.circles.removeChildren(0);
-		layer1.lines.removeChildren(0);
-		layer1.lp = null;
-		Setup(layer1);
-	}
+	//make the circle
+	circle = new Path.Circle(axisPoint, circSize);
+	circle.strokeColor = 'black';
+	circle.fillColor = 'grey';
+	circle.name = (dir == -1)?'rback' : 'rfw';
 	
+	circles.addChild(circle);
+
+	var line = new Path.Line(circles.lastChild.previousSibling.position, circles.lastChild.position);
+	line.style = lstyle;
+	lines.addChild(line);
+
+	path = circles.lastChild;
+	ind = circles.lastChild.index;
+	path.selected = true;	
 }
 
-globals.Clear = Clear;
+function redraw(layer){
+	layer.activate();
+	var circles = layer.circles;
+	var curves = layer.curves;
+	var lines = layer.lines;
+	
+	var i = 1;
+	while(i <= circles.lastChild.index){
+		//ith curve is redrawn forward, and i+1th curve is reversed and redrawn
+		if (circles.children[i].name == 'greenr'){
+			circles.children[i].position.x = circles.children[i - 1].position.x + metersize;
+			//console.log('greenr', GSsize, circles.children[i].position.x, circles.children[i - 1].position.x);
+		}
+		else if (circles.children[i].name == 'greenl'){
+			circles.children[i].position.x = circles.children[i - 1].position.x - metersize;
+			//console.log('greenl', GSsize, circles.children[i].position.x, circles.children[i - 1].position.x);
+		}
+		else if (circles.children[i].name == 'rfw'){
+			circles.children[i].position.x = circles.children[i - 1].position.x + GSsize;
+			//console.log('rfw', GSsize, circles.children[i].position.x, circles.children[i - 1].position.x);
+		}
+		else if (circles.children[i].name == 'rback'){
+			circles.children[i].position.x = circles.children[i - 1].position.x - GSsize;
+			//console.log('rback', GSsize, circles.children[i].position.x, circles.children[i - 1].position.x);
+		}
+		
+		curves.children[i - 1].removeSegments(1);
+		var newp = new Point(computeCurve(circles.children[i - 1].position, circles.children[i].position, project.activeLayer));
+       	curves.children[i - 1].arcTo(newp, circles.children[i].position);
+       	updateLine(i - 1, circles.children[i].position);
+       	
+       	if(i < circles.lastChild.index){
+	       	curves.children[i].reverse();
+	       	curves.children[i].removeSegments(1);
+			var newp = new Point(computeCurve(circles.children[i].position, circles.children[i - 1].position, project.activeLayer));
+	       	curves.children[i].arcTo(newp, circles.children[i].position);
+	       	curves.children[i].reverse();
+	       	
+	       	lines.children[i].reverse();
+	       	updateLine(i, circles.children[i].position);
+	       	lines.children[i].reverse();
+		}
+		i += 1;
+	}
+}
 
 function onMouseUp(event) {
 	controls.selected = false;
@@ -656,6 +840,13 @@ function onMouseDown(event) {
 			else if(hitResult.item.name == 'meter'){
 				drawMeters();
 			}
+			else if (hitResult.item.isParent(gsControls)){
+				changeGS(hitResult.item);
+			}
+			else if(hitResult.item.name == 'giantS'){
+				drawGSes();
+			}
+			
 			
 		}
 		
@@ -671,191 +862,31 @@ function onMouseDown(event) {
 
 function onMouseDrag(event) {
     if (path && path.name != 'start' && path != endC){
-    	var curves = project.activeLayer.curves;
-    	var circles = project.activeLayer.circles;
-    	var lines = project.activeLayer.lines;
+	    var activeLayer = project.activeLayer;
+    	var dir = 1;
     	//var gap = GSsize;
+    	
     	if (path.name == 'rback' || path.name == 'rfw'){
 	        //path.position.x += event.delta.x;
-	        GSsize = path.position.x - path.previousSibling.position.x + event.delta.x;
+	        //GSsize = path.position.x - path.previousSibling.position.x + event.delta.x;
+	        
 	        if(path.name == 'rback'){
-	        	GSsize *= -1;
+	        	//GSsize *= -1;
+	        	dir = -1;
 	        }
 	        
-	        var i = 0;
-	        
-	        while (i < circles.lastChild.index){
-	        	if(circles.children[i + 1].name == 'rback'){
-	        		GSsize *= -1;
-	        	}
-	        	
-	        	
-	        	if(circles.children[i + 1].name != 'greenl' && circles.children[i + 1].name != 'greenr'){
-		        	circles.children[i + 1].position.x = circles.children[i].position.x + GSsize;
-
-		        	curves.children[i].removeSegments(1); // edit the front two segments of the arc, after moving the point ahead
-		        	var gap = circles.children[i + 1].position - circles.children[i].position;
-		        	if (circles.children[i + 1].position.x < circles.children[i].position.x){
-						gap *= -1;
-					}
-					
-					if (project.activeLayer == layer2){
-						gap *= -1;
-					}
-					
-		        	gap.angle -= 90;
-		        	gap /= 2;
-		        	var midp = new Point((circles.children[i + 1].position + circles.children[i].position) / 2);
-		        	var newp = new Point(midp + gap);
-		        	curves.children[i].arcTo(newp, circles.children[i + 1].position);
-		        	updateLine(i, circles.children[i + 1].position);
-		        	
-		        	
-		        	curves.children[i].reverse(); // edit the former two segments of the arc, because the point behind moved in the previous loop step
-		        	
-		        	var gap2 = circles.children[i + 1].position - circles.children[i].position;
-		        	if (circles.children[i + 1].position.x < circles.children[i].position.x){
-						gap2 *= -1;
-					}
-					
-					if (project.activeLayer == layer2){
-						gap2 *= -1;
-					}
-					
-		        	gap2.angle -= 90;
-		        	gap2 /= 2;
-		        	var midp2 = new Point((circles.children[i + 1].position + circles.children[i].position) / 2);
-		        	var newp2 = new Point(midp2 + gap2);
-		        	
-		        	
-		        	curves.children[i].removeSegments(1);
-		        	
-		        	curves.children[i].arcTo(newp, circles.children[i].position);
-		        	curves.children[i].reverse();
-		        	lines.children[i].reverse();
-		        	updateLine(i, circles.children[i].position);
-		        	lines.children[i].reverse();
-		        	
-		        	
-	        	}
-	        	
-	        	else if (circles.children[i + 1].name == 'greenr'){
-		        	circles.children[i + 1].position.x = circles.children[i].position.x + metersize;
-		        	var translation = circles.children[i].position.x - curves.children[i].firstSegment.getPoint().x;
-		        	curves.children[i].translate(new Point(translation, 0));
-		        	lines.children[i].translate(new Point(translation, 0));
-	        	}
-
-	        	else if (circles.children[i + 1].name == 'greenl'){
-		        	circles.children[i + 1].position.x = circles.children[i].position.x - metersize;
-		        	var translation = circles.children[i].position.x - curves.children[i].firstSegment.getPoint().x;
-		        	curves.children[i].translate(new Point(translation, 0));
-		        	lines.children[i].translate(new Point(translation, 0));
-	        	}
-	        	
-	        		        	
-	        	if(circles.children[i].name == 'rback'){
-	        		GSsize *= -1;
-	        	}
-	        	i += 1;
-	        }
-	        
-	        i = 0;
-	        
-	        var layr = layer1;
-	        if (project.activeLayer == layer1)
-	        	layr = layer2;
-	        layr.activate();
-	        var circles2 = layr.circles;
-	        var curves2 = layr.curves;
-	        var lines2 = layr.lines;
-	        while (i < circles2.lastChild.index){
-	        	if(circles2.children[i + 1].name == 'rback'){
-	        		GSsize *= -1;
-	        	}
-	        	
-	        	
-	        	if(circles2.children[i + 1].name != 'greenl' && circles2.children[i + 1].name != 'greenr'){
-		        	circles2.children[i + 1].position.x = circles2.children[i].position.x + GSsize;
-
-		        	curves2.children[i].removeSegments(1); // edit the front two segments of the arc, after moving the point ahead
-		        	var gap = circles2.children[i + 1].position - circles2.children[i].position;
-		        	if (circles2.children[i + 1].position.x < circles.children[i].position.x){
-						gap *= -1;
-					}
-					
-					if (layr == layer2){
-						gap *= -1;
-					}
-		        	gap.angle -= 90;
-		        	gap /= 2;
-		        	var midp = new Point((circles2.children[i + 1].position + circles2.children[i].position) / 2);
-		        	var newp = new Point(midp + gap);
-		        	curves2.children[i].arcTo(newp, circles2.children[i + 1].position);
-		        	updateLine(i, circles2.children[i + 1].position);
-		        	
-		        	
-		        	curves2.children[i].reverse(); // edit the former two segments of the arc, because the point behind moved in the previous loop step
-		        	
-		        	var gap2 = circles2.children[i + 1].position - circles2.children[i].position;
-		        	if (circles2.children[i + 1].position.x < circles2.children[i].position.x){
-						gap2 *= -1;
-					}
-					
-					if (layr == layer2){
-						gap2 *= -1;
-					}
-		        	gap2.angle -= 90;
-		        	gap2 /= 2;
-		        	var midp2 = new Point((circles2.children[i + 1].position + circles2.children[i].position) / 2);
-		        	var newp2 = new Point(midp2 + gap2);
-		        	
-		        	
-		        	curves2.children[i].removeSegments(1);
-		        	
-		        	curves2.children[i].arcTo(newp, circles2.children[i].position);
-		        	curves2.children[i].reverse();
-		        	lines2.children[i].reverse();
-		        	updateLine(i, circles2.children[i].position);
-		        	lines2.children[i].reverse();
-		        	
-		        	
-	        	}
-	        	
-	        	else if (circles2.children[i + 1].name == 'greenr'){
-		        	circles2.children[i + 1].position.x = circles2.children[i].position.x + metersize;
-		        	var translation = circles2.children[i].position.x - curves2.children[i].firstSegment.getPoint().x;
-		        	curves2.children[i].translate(new Point(translation, 0));
-		        	lines2.children[i].translate(new Point(translation, 0));
-	        	}
-
-	        	else if (circles2.children[i + 1].name == 'greenl'){
-		        	circles2.children[i + 1].position.x = circles2.children[i].position.x - metersize;
-		        	var translation = circles2.children[i].position.x - curves2.children[i].firstSegment.getPoint().x;
-		        	curves2.children[i].translate(new Point(translation, 0));
-		        	lines2.children[i].translate(new Point(translation, 0));
-	        	}
-	        	
-	        	if(circles2.children[i].name == 'rback'){
-	        		GSsize *= -1;
-	        	}
-	        	i += 1;
-	        }
-	        if (layr == layer2){
-	        	layer1.activate();
-	        	layer1.moveAbove(layer2);
-	        }
-	        else if (layr == layer1){
-	        	layer2.activate();
-	        	layer2.moveAbove(layer1);
-	        }
+	        GSsize += (dir * event.delta.x);
+	        //console.log(GSsize);
+	        redraw(layer1);
+	        redraw(layer2);
 	    }
+	    activeLayer.activate();
 	    
 	    //The next two check, that if the meter circles have been moved significantly, their orientation will change. 
 	    
 	    // > The new thing, will then, translate everything ahead accordingly, and not redraw any curves
 	    
-        else if(path.name == 'greenr'){
+        /*else if(path.name == 'greenr'){
         	if(event.point.x < (path.position.x - 50)){
 	        		path.position -= new Point((2 * metersize), 0);
 	        		path.name = 'greenl';
@@ -923,7 +954,7 @@ function onMouseDrag(event) {
 			        nextCircle = circles.children[checkAhead].nextSibling;
 			    }
 			}
-	    }
+	    }*/
     }
     else if(path && path == endC){
 	    path.position += event.delta;
