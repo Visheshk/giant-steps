@@ -54,14 +54,13 @@ var storeVis = 1;
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 
-
-<img src = "../images/flag-small.png" id = 'flag' hidden/>
-<img src = "../images/shore2.png" id = 'shore' hidden />
-<img src = "../images/hills.jpg" id = 'hills' hidden/>
-<img src = "../images/bg.jpg" id = 'bg' width = "1100" hidden />
-
 </head>
 <body>
+
+<img src = "../images/flag-small.png" id = 'flag' hidden/>
+<img src = "../images/treasurebox.png" id = 'tbox'  hidden />
+<img src = "../images/bg.jpg" id = 'bg' width = "1100" hidden />
+
 	<div id = "upperBar"></div>
 		<div class = "header-fixed story-top span6" id = "topStory">
 			<div id="upper-part">
@@ -70,10 +69,10 @@ var storeVis = 1;
 			<div class="tabbable tabs-below">
             	<div class="tab-content">
             		<div class="tab-pane active" id="A">
-            			<p>The giant take 2 giant steps forward, and four meters back. She then buries her treasure.</p>
+            			<p>The giant take two giant steps forward, and four meters back. She then buries her treasure.</p>
             		</div>
             		<div class="tab-pane" id="B">
-            			<p>The giant takes 1 giant step forward, and walks 3 meters back. She then finds the right spot and buries the treasure again.</p>
+            			<p>The giant has more treasure that she wants to add to the treasure from yesterday. So, she takes one giant step forward, and walks three meters back. She then finds the right spot and buries the treasure again.</p>
             		</div>
             	</div>
             	<ul class="nav nav-tabs">
@@ -89,7 +88,7 @@ var storeVis = 1;
 		        <form name = "answer" action="javascript:void(0);">
 				<input type="text" class = "" id = "ans" placeholder = "Distance in meters"  style = "margin-top: 9px; text-align: right;"/>
 				<a href = "#myModal" data-toggle = "modal"><input type="submit" class = "btn" onclick="javascript:
-				if(document.getElementById('ans').value!= 11) {
+				if(document.getElementById('ans').value!= 10) {
 					document.getElementById('response').innerHTML = msg[0];
 					document.getElementById('progress-button').style.visibility = 'hidden';
 					an = 0;
@@ -158,7 +157,7 @@ var storeVis = 1;
 	
 
 	<br />
-    <canvas id="myCanvas" height = "700" width = "1200"></canvas> 
+    <canvas id="myCanvas" height = "700" width = "1045"></canvas> 
 </div>
 
 <div class = "vertical" />

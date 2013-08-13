@@ -104,13 +104,14 @@ var flsize = new Point(23, -50);
 flag.position = start + flsize;
 
 var end = new Point(570, 250);
-var flag2 = new Raster('flag');
+var flag2 = new Raster('tbox');
 var flsize = new Point(23, -50);
-flag2.position = end + flsize;
+flag2.position = end;
 
-var endC = new Path.Circle(end, circSize);
-endC.fillColor = 'grey';
-endC.strokeColor = 'black';
+var endC = new Path.RegularPolygon(end, 4, 55);
+endC.fillColor = 'brown';
+endC.strokeColor = 'gold';
+endC.opacity = 0.1;
 
 var tlCornX = 900; var tlCornY = 600;
 
@@ -271,9 +272,9 @@ var ind = 0, ind2 = 0, mover = 0, color = 'red', lp1 = null, lp2 = null;
 var day = 1; dirn = 0;
 
 controls.activate();
-controls.children['green'].opacity = 0.2;
+controls.children['green'].opacity = 0.4;
 controls.children['tgreen'].fillColor = 'grey';
-controls.children['lay2'].opacity = 0.2;
+controls.children['lay2'].opacity = 0.4;
 controls.children['tlay2'].fillColor = 'grey';
 
 layer2.opacity = 0.4;
@@ -320,7 +321,7 @@ function zom(dir){
 
 function activateMeter(){
 	color = 'green';
-	controls.children['red'].opacity = 0.2;
+	controls.children['red'].opacity = 0.4;
 	controls.children['tred'].fillColor = 'grey';
 	controls.children['green'].opacity = 1;
 	controls.children['tgreen'].fillColor = 'white';
@@ -330,7 +331,7 @@ function activateGS(){
 	color = 'red';
 	controls.children['red'].opacity = 1;
 	controls.children['tred'].fillColor = 'white';
-	controls.children['green'].opacity = 0.2;
+	controls.children['green'].opacity = 0.4;
 	controls.children['tgreen'].fillColor = 'grey';
 }
 
@@ -341,14 +342,14 @@ function day1(){
 	color = 'red';
 	controls.children['red'].opacity = 1;
 	controls.children['tred'].fillColor = 'white';
-	controls.children['green'].opacity = 0.2;
+	controls.children['green'].opacity = 0.4;
 	controls.children['tgreen'].fillColor = 'grey';
 	
 	layer1.opacity = 1;
 	layer2.opacity = 0.4;
 	controls.children['lay1'].opacity = 1;
 	controls.children['tlay1'].fillColor = 'black';
-	controls.children['lay2'].opacity = 0.2;
+	controls.children['lay2'].opacity = 0.4;
 	controls.children['tlay2'].fillColor = 'grey';
 }
 
@@ -359,7 +360,7 @@ function day2(){
 	color = 'red';
 	controls.children['red'].opacity = 1;
 	controls.children['tred'].fillColor = 'white';
-	controls.children['green'].opacity = 0.2;
+	controls.children['green'].opacity = 0.4;
 	controls.children['tgreen'].fillColor = 'grey';
 	
 	layer2.opacity = 1;
@@ -367,7 +368,7 @@ function day2(){
 	
 	controls.children['lay2'].opacity = 1;
 	controls.children['tlay2'].fillColor = 'black';
-	controls.children['lay1'].opacity = 0.2;
+	controls.children['lay1'].opacity = 0.4;
 	controls.children['tlay1'].fillColor = 'grey';
 }
 
@@ -549,7 +550,7 @@ function drawMeter(dir){
 			var ncurve = new Path.Arc(lastPoint, pointBw, eventpoint);
 			
 			ncurve.style = gstyle;
-			ncurve.strokeColor = 'green';
+			//ncurve.strokeColor = 'green';
 			curves.addChild(ncurve);
 		}
 		else{
@@ -722,10 +723,12 @@ function onMouseMove(event) {
 	layer2.selected = false;
 	document.body.style.cursor = 'auto';
 	if (hitResult && hitResult.item && (hitResult.item.layer == project.activeLayer || hitResult.item.layer == controls)){
-    	if(hitResult.item != flag && hitResult.item != shore){
+    	if(hitResult.item != flag){
 	    	hitResult.item.selected = true;
-	    	if(hitResult.item == endC)
-	    		document.body.style.cursor = 'move';
+	    	if(hitResult.item == endC){
+	    		hitResult.item.selected = true;
+	    		//document.body.style.cursor = 'move';
+	    	}
     	}
     		
    		if (hitResult.item.layer != controls)
@@ -754,7 +757,7 @@ function onMouseDown(event) {
 		
 			if (hitResult.item.name == 'green'){
 				color = 'green';
-				controls.children['red'].opacity = 0.2;
+				controls.children['red'].opacity = 0.4;
 				controls.children['tred'].fillColor = 'grey';
 				controls.children['green'].opacity = 1;
 				controls.children['tgreen'].fillColor = 'white';
@@ -764,7 +767,7 @@ function onMouseDown(event) {
 				color = 'red';
 				controls.children['red'].opacity = 1;
 				controls.children['tred'].fillColor = 'white';
-				controls.children['green'].opacity = 0.2;
+				controls.children['green'].opacity = 0.4;
 				controls.children['tgreen'].fillColor = 'grey';
 			}
 			else if (hitResult.item.name == 'lay1' && project.activeLayer != layer1){
@@ -774,14 +777,14 @@ function onMouseDown(event) {
 				color = 'red';
 				controls.children['red'].opacity = 1;
 				controls.children['tred'].fillColor = 'white';
-				controls.children['green'].opacity = 0.2;
+				controls.children['green'].opacity = 0.4;
 				controls.children['tgreen'].fillColor = 'grey';
 				
 				layer1.opacity = 1;
 				layer2.opacity = 0.4;
 				controls.children['lay1'].opacity = 1;
 				controls.children['tlay1'].fillColor = 'black';
-				controls.children['lay2'].opacity = 0.2;
+				controls.children['lay2'].opacity = 0.4;
 				controls.children['tlay2'].fillColor = 'grey';
 				
 			}
@@ -793,7 +796,7 @@ function onMouseDown(event) {
 				color = 'red';
 				controls.children['red'].opacity = 1;
 				controls.children['tred'].fillColor = 'white';
-				controls.children['green'].opacity = 0.2;
+				controls.children['green'].opacity = 0.4;
 				controls.children['tgreen'].fillColor = 'grey';
 				
 				layer2.opacity = 1;
@@ -801,7 +804,7 @@ function onMouseDown(event) {
 				
 				controls.children['lay2'].opacity = 1;
 				controls.children['tlay2'].fillColor = 'black';
-				controls.children['lay1'].opacity = 0.2;
+				controls.children['lay1'].opacity = 0.4;
 				controls.children['tlay1'].fillColor = 'grey';
 			}
 			else if (hitResult.item.name == 'undo'){
