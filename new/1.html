@@ -62,30 +62,31 @@ var storeVis = 1;
 <img src = "../images/bg.jpg" id = 'bg' width = "1100" hidden />
 
 	<div id = "upperBar"></div>
-		<div class = "header-fixed story-top span6" id = "topStory">
+	<div class = "row">
+		<div class = "header-fixed story-top span12 lead" id = "topStory">
 			<div id="upper-part">
-			<h4>Question 1.</h4> <br />
-			A giant has a treasure she wants to bury. <br />
-			<div class="tabbable tabs-below">
-            	<div class="tab-content">
-            		<div class="tab-pane active" id="A">
-            			<p>The giant walks five meters forward, and then takes three giant steps back. She then buries her treasure.</p>
-            		</div>
-            		<div class="tab-pane" id="B">
-            			<p>The giant has more treasure that she wants to add to the treasure from yesterday. So, she takes two giant steps forward. She then finds the right spot and buries the treasure again.</p>
-            		</div>
-            	</div>
-            	<ul class="nav nav-tabs">
-                	<li class="active"><a href="#A" data-toggle="tab">Day 1</a></li>
-                	<li class=""><a href="#B" data-toggle="tab">Day 2</a></li>
-                </ul>
-                Using the tools sketch out the story in the drawing space beneath. Use this to find how many meters away the treasure is buried from the starting point.
-            </div>
+				<h2>Question 1.</h2>
+				A giant has a treasure she wants to bury. <br />
+				<div class="tabbable tabs-below">
+	            	<div class="tab-content">
+	            		<div class="tab-pane active" id="A">
+	            			<p>The giant walks five meters forward, and then takes three giant steps back. She then buries her treasure.</p>
+	            		</div>
+	            		<div class="tab-pane" id="B">
+	            			<p>The giant has more treasure that she wants to add to the treasure from yesterday. So, she takes two giant steps forward. She then finds the right spot and buries the treasure again.</p>
+	            		</div>
+	            	</div>
+	            	<ul class="nav nav-tabs">
+	                	<li class="active"><a href="#A" data-toggle="tab">Day 1</a></li>
+	                	<li class=""><a href="#B" data-toggle="tab">Day 2</a></li>
+	                </ul>
+	                Using the tools sketch out the story in the drawing space beneath. Use this to find how many meters away the treasure is buried from the starting point.
+	            </div>
             </div>
             	
 
             <div id = "answer-form"> 
-		        <form name = "answer" action="javascript:void(0);">
+		        <form name = "answer" action="javascript:void(0);" style = "margin-bottom: 0px;">
 				<input type="text" class = "" id = "ans" placeholder = "Distance in meters"  style = "margin-top: 9px; text-align: right;"/>
 				<a href = "#myModal" data-toggle = "modal"><input type="submit" class = "btn" onclick="javascript:
 				if(document.getElementById('ans').value!= 2) {
@@ -110,11 +111,10 @@ var storeVis = 1;
 						storeVis = 1;
 						document.getElementById('topStory').style.top = 0;
 					}" style="float:right;"><h6>Hide/Show Story</h6></button>
-		        </form>
-		        
+		        </form>  
 		    </div>
 		</div>
-
+		</div>
 
 	<div id="footer-fixed" class = "row	" width = "1200">
 		

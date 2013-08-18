@@ -62,9 +62,10 @@ var storeVis = 1;
 <img src = "../images/bg.jpg" id = 'bg' width = "1100" hidden />
 
 	<div id = "upperBar"></div>
-		<div class = "header-fixed story-top span6" id = "topStory">
+	<div class="row">
+		<div class = "header-fixed story-top span12 lead" id = "topStory">
 			<div id="upper-part">
-			<h4>Question 2.</h4> <br />
+			<h2>Question 2.</h2>
 			A giant has a treasure she wants to bury. <br />
 			<div class="tabbable tabs-below">
             	<div class="tab-content">
@@ -85,10 +86,10 @@ var storeVis = 1;
             	
 
             <div id = "answer-form"> 
-		        <form name = "answer" action="javascript:void(0);">
+		        <form name = "answer" action="javascript:void(0);" style = "margin-bottom: 0px;">
 				<input type="text" class = "" id = "ans" placeholder = "Distance in meters"  style = "margin-top: 9px; text-align: right;"/>
 				<a href = "#myModal" data-toggle = "modal"><input type="submit" class = "btn" onclick="javascript:
-				if(document.getElementById('ans').value!= 10) {
+				if(document.getElementById('ans').value!= -2) {
 					document.getElementById('response').innerHTML = msg[0];
 					document.getElementById('progress-button').style.visibility = 'hidden';
 					an = 0;
@@ -111,7 +112,7 @@ var storeVis = 1;
 						document.getElementById('topStory').style.top = 0;
 					}" style="float:right;"><h6>Hide/Show Story</h6></button>
 		        </form>
-		        
+		        </div>
 		    </div>
 		</div>
 
@@ -173,6 +174,7 @@ var storeVis = 1;
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Go back</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href='4.html'">Extra treasure!</button>
     <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true" onclick="window.location.href='3.html'" id="progress-button">Onwards, to the next treasure!</button>
   </div>
 </div>

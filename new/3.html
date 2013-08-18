@@ -62,9 +62,10 @@ var storeVis = 1;
 <img src = "../images/bg.jpg" id = 'bg' width = "1100" hidden />
 
 	<div id = "upperBar"></div>
-		<div class = "header-fixed story-top span6" id = "topStory">
+	<div class="row">
+		<div class = "header-fixed story-top span12 lead" id = "topStory">
 			<div id="upper-part">
-			<h4>Boss fight</h4> <br />
+			<h3>Boss fight</h3>
 			A giant has a treasure she wants to bury. <br />
 			<div class="tabbable tabs-below">
             	<div class="tab-content">
@@ -85,7 +86,7 @@ var storeVis = 1;
             	
 
             <div id = "answer-form"> 
-		        <form name = "answer" action="javascript:void(0);">
+		        <form name = "answer" action="javascript:void(0);" style = "margin-bottom: 0px;">
 				<input type="text" class = "" id = "ans" placeholder = "Distance in meters"  style = "margin-top: 9px; text-align: right;"/>
 				<a href = "#myModal" data-toggle = "modal"><input type="submit" class = "btn" onclick="javascript:
 				if(document.getElementById('ans').value!= 17) {
@@ -111,7 +112,7 @@ var storeVis = 1;
 						document.getElementById('topStory').style.top = 0;
 					}" style="float:right;"><h6>Hide/Show Story</h6></button>
 		        </form>
-		        
+		        </div>
 		    </div>
 		</div>
 

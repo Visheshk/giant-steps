@@ -30,7 +30,7 @@ var cornerSize = new Size(20, 20);
 var tlGSMx = 500;
 var tlGSMy = 600;
 
-var rectangle2 = new Rectangle(new Point(tlGSMx, tlGSMy), new Point(tlGSMx + 100, tlGSMy + 50));
+/*var rectangle2 = new Rectangle(new Point(tlGSMx, tlGSMy), new Point(tlGSMx + 100, tlGSMy + 50));
 var rec2 = new Path.RoundRectangle(rectangle2, cornerSize);
 rec2.name = 'red';
 rec2.fillColor = 'red';
@@ -46,11 +46,11 @@ rec1.fillColor = 'green';
 var text = new PointText(new Point(tlGSMx + 20, tlGSMy + 80));
 text.name = 'tgreen';
 text.fillColor = 'white';
-text.content = 'Meters';
+text.content = 'Meters';*/
 //
 
 //Days 1 and 2
-var tlDaysx = 625, tlDaysy = 600;
+var tlDaysx = 500, tlDaysy = 600;
 
 var l1 = new Rectangle(new Point(tlDaysx, tlDaysy), new Point(tlDaysx + 100, tlDaysy + 50));
 var lay1 = new Path.RoundRectangle(l1, cornerSize);
@@ -72,7 +72,7 @@ text.content = 'Day 2';
 //
 
 //Undo and clear
-var tlEdx = 750, tlEdy = 600;
+var tlEdx = 625, tlEdy = 600;
 
 var un = new Rectangle(new Point(tlEdx, tlEdy), new Point(tlEdx + 100, tlEdy + 50));
 var undo = new Path.RoundRectangle(un, cornerSize);
@@ -113,7 +113,7 @@ endC.fillColor = 'brown';
 endC.strokeColor = 'gold';
 endC.opacity = 0.1;
 
-var tlCornX = 900; var tlCornY = 600;
+var tlCornX = 750; var tlCornY = 600;
 
 	//rectangle
 	var metNum = 0;
@@ -162,7 +162,7 @@ var tlCornX = 900; var tlCornY = 600;
 //
 
 
-var gsCornX = 550; var gsCornY = 50;
+var gsCornX = 875; var gsCornY = 600;
 
 	//rectangle
 	var gsNum = 0;
@@ -272,8 +272,8 @@ var ind = 0, ind2 = 0, mover = 0, color = 'red', lp1 = null, lp2 = null;
 var day = 1; dirn = 0;
 
 controls.activate();
-controls.children['green'].opacity = 0.4;
-controls.children['tgreen'].fillColor = 'grey';
+/*controls.children['green'].opacity = 0.4;
+controls.children['tgreen'].fillColor = 'grey';*/
 controls.children['lay2'].opacity = 0.4;
 controls.children['tlay2'].fillColor = 'grey';
 
@@ -340,10 +340,10 @@ function day1(){
 	layer1.moveAbove(layer2);
 	
 	color = 'red';
-	controls.children['red'].opacity = 1;
+	/*controls.children['red'].opacity = 1;
 	controls.children['tred'].fillColor = 'white';
 	controls.children['green'].opacity = 0.4;
-	controls.children['tgreen'].fillColor = 'grey';
+	controls.children['tgreen'].fillColor = 'grey';*/
 	
 	layer1.opacity = 1;
 	layer2.opacity = 0.4;
@@ -358,10 +358,10 @@ function day2(){
 	layer2.moveAbove(layer1);
 	
 	color = 'red';
-	controls.children['red'].opacity = 1;
+	/*controls.children['red'].opacity = 1;
 	controls.children['tred'].fillColor = 'white';
 	controls.children['green'].opacity = 0.4;
-	controls.children['tgreen'].fillColor = 'grey';
+	controls.children['tgreen'].fillColor = 'grey';*/
 	
 	layer2.opacity = 1;
 	layer1.opacity = 0.4;
@@ -529,7 +529,8 @@ function drawMeters(){
 			metNum -= 1;
 		}
 	}
-	metNum = num;
+	//metNum = num;
+	metNum = 0;
 	mtext.content = metNum + ' M';
 }
 
@@ -608,7 +609,8 @@ function drawGSes(){
 			gsNum -= 1;
 		}
 	}
-	gsNum = num;
+	//gsNum = num;
+	gsNum = 0;
 	gstext.content = gsNum + ' G';
 }
 
@@ -775,10 +777,10 @@ function onMouseDown(event) {
 				layer1.moveAbove(layer2);
 				
 				color = 'red';
-				controls.children['red'].opacity = 1;
+				/*controls.children['red'].opacity = 1;
 				controls.children['tred'].fillColor = 'white';
 				controls.children['green'].opacity = 0.4;
-				controls.children['tgreen'].fillColor = 'grey';
+				controls.children['tgreen'].fillColor = 'grey';*/
 				
 				layer1.opacity = 1;
 				layer2.opacity = 0.4;
@@ -794,10 +796,10 @@ function onMouseDown(event) {
 				layer2.moveAbove(layer1);
 				
 				color = 'red';
-				controls.children['red'].opacity = 1;
+				/*controls.children['red'].opacity = 1;
 				controls.children['tred'].fillColor = 'white';
 				controls.children['green'].opacity = 0.4;
-				controls.children['tgreen'].fillColor = 'grey';
+				controls.children['tgreen'].fillColor = 'grey';*/
 				
 				layer2.opacity = 1;
 				layer1.opacity = 0.4;
